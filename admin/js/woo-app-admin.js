@@ -28,5 +28,19 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+	 $( window ).load(function() {
+     // Enable pusher logging - don't include this in production
+     Pusher.logToConsole = true;
 
+     var pusher = new Pusher('c360be1f31eaae53e193', {
+       cluster: 'ap1'
+     });
+
+     var channel = pusher.subscribe('warehouse');
+     channel.bind('order', function(data) {
+       console.log(data.order);
+       console.log(JSON.stringify(data));
+       alert(JSON.stringify(data));
+     });
+   });
 })( jQuery );

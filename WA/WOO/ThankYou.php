@@ -67,6 +67,7 @@ class WA_WOO_ThankYou {
       'deliver_on' => $get_deliver_on,
       'time_deliver' => $get_time_deliver,
     ];
+		WA_Pusher_Push::get_instance()->newOrder();
     WA_View::get_instance()->public_partials( 'delivery/recieved.php', $data );
   }
 

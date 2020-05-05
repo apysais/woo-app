@@ -96,9 +96,10 @@ class Woo_App_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( 'bootstrap4-iso', wa_get_plugin_dir_url() . 'assets/bootstrap-iso/bootstrap.min.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woo-app-admin.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( 'bootstrap4-iso', wa_get_plugin_dir_url() . 'assets/bootstrap-iso/bootstrap.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-pusher-js', 'https://js.pusher.com/6.0/pusher.min.js', array( ), '6.0', true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/woo-app-admin.js', array( 'jquery' ), $this->version, true );
+		
 	}
 
 }
