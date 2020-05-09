@@ -3,9 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
- * Template
+ * Ajax
+ * @since 0.0.1
  * */
-class WA_Warehouse_DashboardWidget {
+class WA_Orders_Ajax {
   /**
 	 * instance of this class
 	 *
@@ -40,13 +41,13 @@ class WA_Warehouse_DashboardWidget {
 	}
 
 	public function __construct() {
-    add_action('wa-top-dashboard-full-width', [$this, 'init']);
+    add_action( 'wp_ajax_wa_refresh_orders', [$this, 'getOrders'] );
   }
 
-  public function init( $args = [] ) {
-    $data = [];
-
-    WA_View::get_instance()->admin_partials( 'warehouse/dashboard-widget.php', $data );
+  public function getOrders() {
+		WA_Orders_List::get_instance()->get_orders();
+    wp_die();
   }
+
 
 }//

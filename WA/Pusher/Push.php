@@ -73,4 +73,24 @@ class WA_Pusher_Push {
     ]);
   }
 
+  public function notifyWareHouse() {
+    $this->pushNotification([
+      'data' => [
+        'order' => 'notify'
+      ],
+      'channel' => 'warehouse',
+      'event' => 'order',
+    ]);
+  }
+
+	public function releaseOrder() {
+		$this->pushNotification([
+      'data' => [
+        'order' => 'release'
+      ],
+      'channel' => 'warehouse',
+      'event' => 'order',
+    ]);
+	}
+
 }//

@@ -149,6 +149,9 @@ function run_woo_app() {
 	//woocommerce
 	WA_WOO_CheckOut::get_instance();
 	WA_WOO_ThankYou::get_instance();
+
+	//ajax
+	WA_Orders_Ajax::get_instance();
 }
 //run_woo_app();
 add_action('plugins_loaded', 'run_woo_app');

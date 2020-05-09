@@ -5,3 +5,19 @@
 .bootstrap-iso{
   font-size: 1rem;
 }
+.wa-dashboard-list-orders .row {
+  padding: 10px 0;
+}
+.wa-dashboard-list-orders  p {
+  margin:0px;
+  padding:0px;
+}
+.wa-dashboard-list-orders .row {
+  cursor: pointer;
+}
+.wa-dashboard-list-orders .collapse  {
+  cursor: cursor;
+}
+.row-list-actions {
+  margin-top: 10px;
+}

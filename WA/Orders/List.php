@@ -43,9 +43,18 @@ class WA_Orders_List {
 
   }
 
-  public function show( $args = [] ) {
+  public function get_orders( $args = [] ) {
     $data = [];
-    WA_View::get_instance()->admin_partials( 'orders/table-loop-list.php', $data );
+		$orders = new WA_Orders_Get;
+		$new_orders = $orders->newOrders();
+		$released_orders = $orders->releasedOrders();
+		$data = [
+			'new_orders' => $new_orders['orders'],
+			'released_orders' => $released_orders['orders'],
+			'class' => 'col-sm-12 col-md-12'
+		];
+    WA_View::get_instance()->admin_partials( 'orders/loop-list.php', $data );
   }
+
 
 }//

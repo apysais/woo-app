@@ -28,19 +28,48 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-	 $( window ).load(function() {
-     // Enable pusher logging - don't include this in production
-     Pusher.logToConsole = true;
+	 var wa_get_orders_dashboards = function() {
+		function _ajax() {
+			var _get_orders = $.ajax({
+					type: "POST",
+					url: ajaxurl,
+					data: {
+						action: 'wa_refresh_orders',
+					},
+					async: false
+			});
+			return _get_orders;
+		}
+		function _test() {
+			$('.test-ajax').on('click', function(e){
+				var _init_ajax = _ajax();
+				_init_ajax.done(function( msg ) {
+			    //console.log(msg);
+					$('.orders-list').html(msg);
+			  });
+			});
+		}
+		function _get_orders() {
+			var _init_ajax = _ajax();
+			_init_ajax.done(function( msg ) {
+		    //console.log(msg);
+				$('.orders-list').html(msg);
+		  });
+		}
+		return {
+			init : function() {
+				_test();
+			},
+			getOrders : function() {
+				_get_orders();
+				alert('aasd');
+			}
+		};
+	}();
 
-     var pusher = new Pusher('c360be1f31eaae53e193', {
-       cluster: 'ap1'
-     });
+	$( window ).load(function() {
+		wa_get_orders_dashboards.init();
+		//wa_get_orders_dashboards.getOrders();
+	});
 
-     var channel = pusher.subscribe('warehouse');
-     channel.bind('order', function(data) {
-       console.log(data.order);
-       console.log(JSON.stringify(data));
-       alert(JSON.stringify(data));
-     });
-   });
 })( jQuery );
