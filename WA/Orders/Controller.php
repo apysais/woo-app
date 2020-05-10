@@ -39,6 +39,10 @@ class WA_Orders_Controller extends WA_Base {
 		return self::$instance;
 	}
 
+	public function complete_orders() {
+		echo 'asd';
+	}
+
 	public function complete() {
 		$order_id = false;
 		if ( isset($_POST['order_id']) ) {

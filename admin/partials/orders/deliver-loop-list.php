@@ -1,4 +1,5 @@
 <div class="wa-delivery-list-orders">
+  <?php WA_View::get_instance()->admin_partials( 'nav.php', [] ); ?>
   <div class="row">
     <?php if ( wa_store_office_access() ) : ?>
       <?php if ( $local_pickup ) : ?>

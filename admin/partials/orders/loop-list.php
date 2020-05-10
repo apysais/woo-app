@@ -1,3 +1,4 @@
+<?php WA_View::get_instance()->admin_partials( 'nav.php', [] ); ?>
 <div class="wa-dashboard-list-orders">
   <div class="row">
     <?php if ( wa_store_office_access() ) : ?>
