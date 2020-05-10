@@ -47,7 +47,7 @@ class WA_WPMenu {
     add_menu_page(
         __( 'WOO APP Dashboard'),
         'WOO APP',
-        'manage_options',
+        'delete_posts',
         'app-dashboard',
         [WA_Dashboard_Controller::get_instance() , 'controller'],
         'dashicons-welcome-widgets-menus',
@@ -57,7 +57,7 @@ class WA_WPMenu {
         'app-dashboard',
         __( 'Warehouse Dashboard'),
         __( 'Warehouse'),
-        'manage_options',
+        'delete_posts',
         'warehouse',
         [WA_Warehouse_Controller::get_instance() , 'controller']
     );
@@ -65,9 +65,9 @@ class WA_WPMenu {
         '',
         __( 'Orders'),
         __( 'Orders'),
-        'manage_options',
+        'delete_posts',
         'orders',
-        [WA_Warehouse_Controller::get_instance() , 'controller']
+        [WA_Orders_Controller::get_instance() , 'controller']
     );
   }
 

@@ -1,7 +1,7 @@
-<?php if ( $orders ) : ?>
+<?php if ( $local_pickup ) : ?>
   <ul class="list-group accordion" id="<?php echo $status.'-orders';?>">
     <?php $meta_order = new WA_Delivery_Meta; ?>
-    <?php foreach ( $orders as $order ) : ?>
+    <?php foreach ( $local_pickup['orders'] as $order ) : ?>
       <?php
         $order_id = $order->get_id();
 
@@ -22,12 +22,13 @@
         ]);
         $get_delivery_time = $get_delivery_time ? $get_delivery_time : WA_STORE_DELIVERY_TIME;
         $important = WA_Orders_Meta::get_instance()->important(['post_id' => $order_id, 'action' => 'r', 'single' => true ]);
+        $delivery_method = wa_get_shipping_methods($order);
       ?>
-      <li class="list-group-item bg-light text-dark">
+      <?php if ( $delivery_method['shipping_method_id'] == 'local_pickup' ) : ?>
+        <li class="list-group-item bg-light text-dark">
         <div class="row bg-secondary text-white" data-toggle="collapse" data-target="#collapse<?php echo $order_id;?>" aria-expanded="true" aria-controls="collapse<?php echo $order_id;?>">
-          <div class="col-md-2 col-sm-12">Order # <?php echo $order_id;?></div>
+          <div class="col-md-4 col-sm-12">Order # <?php echo $order_id;?></div>
           <div class="col-md-5 col-sm-12">Customer : <span class="text-uppercase font-weight-bold customer"><?php echo $order->get_billing_first_name() .' '. $order->get_billing_last_name();?></span></div>
-          <div class="col-md-2 col-sm-12">Deliver : <span class="text-uppercase font-weight-bold"><?php echo wa_shipping_text($order); ?></span></div>
           <div class="col-md-3 col-sm-12">Ordered On : <span class="text-uppercase font-weight-bold"><?php echo \Carbon\Carbon::parse($order->get_date_created())->diffForHumans();?></span></div>
         </div>
         <div id="collapse<?php echo $order_id;?>" class="collapse" data-parent="#<?php echo $status.'-orders';?>">
@@ -113,101 +114,22 @@
               </div>
               <div class="row row-list-actions">
                 <div class="col-sm-12">
-                    <?php
-                      switch ( $status ) {
-                        case 'new' :
-                          ?>
-                          <div class="col-sm-12">
-                            <div class="row">
-                              <div class="col-sm-12 col-md-6">
-                                <form action="<?php echo admin_url('admin.php?page=orders');?>" method="POST" name="release-order">
-                                  <input type="hidden" name="order_id" value="<?php echo $order_id;?>">
-                                  <input type="hidden" name="_method" value="set-release">
-                                  <div class="form-group">
-                                      <label for="commentWarehouse">Comment to warehouse</label>
-                                      <textarea class="form-control" name="commentWarehouse" id="commentWarehouse" rows="3"></textarea>
-                                  </div>
-                                  <!-- <div class="form-group form-check">
-                                    <input class="form-check-input" type="checkbox" name="importantOrder" value="1" id="defaultCheck1">
-                                    <label class="form-check-label" for="defaultCheck1">
-                                      Mark as Important
-                                    </label>
-                                  </div> -->
-                                  <div class="form-group">
-                                      <button type="submit" class="btn btn-primary mb-2">Release Order</button>
-                                  </div>
-                                </form>
-                              </div>
-                              <?php if ( wa_store_office_access() ) : ?>
-                                <div class="col-sm-12 col-md-6">
-                                  <form action="<?php echo admin_url('admin.php?page=orders');?>" method="POST" name="finish-order">
-                                    <input type="hidden" name="order_id" value="<?php echo $order_id;?>">
-                                    <input type="hidden" name="_method" value="done">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary mb-2">Finish Order</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              <?php endif; ?>
-                            </div>
-
-                          </div>
-                          <?php
-                          break;
-                        case 'released' :
-                          ?>
-                          <div class="col-sm-12">
-                            <div class="row">
-                              <div class="col-sm-12 col-md-6">
-                                <form action="<?php echo admin_url('admin.php?page=orders');?>" method="POST" name="start-order">
-                                  <input type="hidden" name="order_id" value="<?php echo $order_id;?>">
-                                  <input type="hidden" name="_method" value="working">
-                                  <div class="form-group">
-                                      <button type="submit" class="btn btn-primary mb-2">Start Order</button>
-                                  </div>
-                                </form>
-                              </div>
-                              <?php if ( wa_store_office_access() ) : ?>
-                                <div class="col-sm-12 col-md-6">
-                                  <form action="<?php echo admin_url('admin.php?page=orders');?>" method="POST" name="finish-order">
-                                    <input type="hidden" name="order_id" value="<?php echo $order_id;?>">
-                                    <input type="hidden" name="_method" value="done">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary mb-2">Finish Order</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              <?php endif; ?>
-                            </div>
-
-                          </div>
-                          <?php
-                          break;
-                        case 'working' :
-                          ?>
-                          <div class="col-sm-12">
-                            <div class="row">
-                              <div class="col-sm-12 col-md-6">
-                                <form action="<?php echo admin_url('admin.php?page=orders');?>" method="POST" name="finish-order">
-                                  <input type="hidden" name="order_id" value="<?php echo $order_id;?>">
-                                  <input type="hidden" name="_method" value="done">
-                                  <div class="form-group">
-                                      <button type="submit" class="btn btn-primary mb-2">Finish Order</button>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                          <?php
-                          break;
-                      }
-                    ?>
+                  <div class="col-sm-12">
+                    <form action="<?php echo admin_url('admin.php?page=orders');?>" method="POST" name="finish-order">
+                      <input type="hidden" name="order_id" value="<?php echo $order_id;?>">
+                      <input type="hidden" name="_method" value="complete">
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-primary mb-2">Complete Order</button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </li>
+      <?php endif; ?>
     <?php endforeach; ?>
   </ul>
 <?php endif; ?>

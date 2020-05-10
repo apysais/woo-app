@@ -1,15 +1,51 @@
 <?php
+function wa_store_office_access() {
+	if (
+		WA_User_Role::get_instance()->is_store_owner()
+		|| WA_User_Role::get_instance()->is_shop_manager()
+		|| WA_User_Role::get_instance()->is_admin()
+	) {
+		return true;
+	}
+	return false;
+}
+function wa_remove_cap_shop_manager() {
+	$shop_manager = get_role( 'shop_manager' );
+	// A list of capabilities to remove from editors.
+  $caps = array(
+    'update_themes',
+    'install_themes',
+    'update_core',
+    'edit_theme_options',
+    'delete_themes',
+    'moderate_comments',
+    'import',
+    'export',
+  );
 
+  foreach ( $caps as $cap ) {
+    // Remove the capability.
+    $shop_manager->remove_cap( $cap );
+  }
+}
+function wa_redirect_to($url) {
+	?>
+	<script type="text/javascript">
+		window.location = '<?php echo $url; ?>';
+	</script>
+	<?php
+	die();
+}
 function wa_important_icon($order_id) {
-	// $important = WA_Orders_Meta::get_instance()->important([
-	// 	'post_id' => $order_id,
-	// 	'action' => 'r',
-	// 	'single' => true
-	// ]);
-  //
-	// if ( $important && $important == 1 ) {
-	// 	echo '<i class="fas fa-star fa-2x" title="Important"></i>';
-	// }
+	$important = WA_Orders_Meta::get_instance()->important([
+		'post_id' => $order_id,
+		'action' => 'r',
+		'single' => true
+	]);
+
+	if ( $important && $important == 1 ) {
+		echo '<i class="fas fa-star fa-2x" title="Important"></i>';
+	}
 }
 
 function wa_get_shipping_methods($shipping_obj) {

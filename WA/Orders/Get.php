@@ -51,7 +51,7 @@ class WA_Orders_Get {
 				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
+				'meta_key' => 'wa_order_status',
 				'meta_compare' => 'NOT EXISTS'
 		];
 		$orders = wc_get_orders( $query_args );
@@ -75,7 +75,7 @@ class WA_Orders_Get {
 				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
+				'meta_key' => 'wa_order_status',
 				'meta_value' => 'released'
 		];
 		$orders = wc_get_orders( $query_args );
@@ -99,7 +99,7 @@ class WA_Orders_Get {
 				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
+				'meta_key' => 'wa_order_status',
 				'meta_value' => 'working'
 		];
 		$orders = wc_get_orders( $query_args );
@@ -123,7 +123,7 @@ class WA_Orders_Get {
 				'status' => ['processing', 'on-hold'],
 		    'orderby' => 'modified',
 		    'order' => 'DESC',
-				'meta_key' => 'wh_order_status',
+				'meta_key' => 'wa_order_status',
 				'meta_value' => 'done'
 		];
 		$orders = wc_get_orders( $query_args );
@@ -141,7 +141,7 @@ class WA_Orders_Get {
 	/**
 	 * get all orders.
 	 **/
-	public function doneOrders() {
+	public function completedOrders() {
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$query_args = [
 	    'paginate' => true,

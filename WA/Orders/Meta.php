@@ -3,10 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
- * Change the warehouse status.
+ * Order Meta.
  * @since 0.0.1
  * */
-class WA_Orders_WareHouseStatus {
+class WA_Orders_Meta {
   /**
 	 * instance of this class
 	 *
@@ -42,50 +42,8 @@ class WA_Orders_WareHouseStatus {
 
   public function __construct() { }
 
-  public function setToReleased( $post_id ) {
-    $this->order_status([
-      'post_id' => $post_id,
-      'action'  => 'u',
-      'value'   => 'released'
-    ]);
-  }
-
-  public function setToNew( $post_id ) {
-    $this->order_status([
-      'post_id' => $post_id,
-      'action'  => 'u',
-      'value'   => 'new'
-    ]);
-  }
-
-  public function setToWorking( $post_id ) {
-    $this->order_status([
-      'post_id' => $post_id,
-      'action'  => 'u',
-      'value'   => 'working'
-    ]);
-  }
-
-  public function setToDone( $post_id ) {
-    $this->order_status([
-      'post_id' => $post_id,
-      'action'  => 'u',
-      'value'   => 'done'
-    ]);
-  }
-
-  public function get( $post_id ) {
-    $get = $this->order_status([
-      'post_id' => $post_id,
-      'action'  => 'r',
-      'single'  => true
-    ]);
-
-    return $get ? $get : 'new';
-  }
-
   /**
-  * Status.
+  * Set order important.
   * @param array $args {
   *		Array of arguments.
   *		@type int $post_id the article id, required.
@@ -96,8 +54,8 @@ class WA_Orders_WareHouseStatus {
   * }
   * @return  $action, r = get_post_meta(), u = update_post_meta(), d = delete_post_meta
   **/
-  public function order_status( $args = [] ) {
-    $prefix = 'wa_order_status';
+  public function important( $args = [] ) {
+    $prefix = 'wa_important';
     if ( isset ( $args['post_id'] ) ) {
 
       $defaults = array(

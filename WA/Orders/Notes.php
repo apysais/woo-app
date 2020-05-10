@@ -57,7 +57,7 @@ class WA_Orders_Notes {
         'type'     => $type,
       ];
       $notes = wc_get_order_notes( $arg_notes );
-			_dd($notes);
+
       return $notes;
     }
     return false;
@@ -66,7 +66,7 @@ class WA_Orders_Notes {
   /**
    * display note.
    */
-  public function showInternal( $order_id, $customer_note ) {
+  public function showInternal( $order_id, $customer_note = '' ) {
     $notes = $this->get([
       'order_id' => $order_id,
       'type' => 'internal'
@@ -81,7 +81,7 @@ class WA_Orders_Notes {
 			'customer_note' => $customer_note
     ];
 
-    //WA_View::get_instance()->public_partials( 'orders/notes.php', $data );
+		return $data;
   }
 
   /**
@@ -96,7 +96,22 @@ class WA_Orders_Notes {
       'notes' => $notes
     ];
 
-    //WA_View::get_instance()->public_partials( 'orders/notes.php', $data );
+		return $data;
+  }
+
+  /**
+   * display note.
+   */
+  public function showWarehouse( $order_id ) {
+    $notes = $this->get([
+      'order_id' => $order_id,
+      'type' => 'internal'
+    ]);
+    $data = [
+      'notes' => $notes
+    ];
+
+		return $data;
   }
 
 }//

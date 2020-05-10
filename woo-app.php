@@ -141,6 +141,7 @@ function run_woo_app() {
 
 	WA_WPMenu::get_instance();
 	WA_Warehouse_DashboardWidget::get_instance();
+	WA_Orders_Index::get_instance();
 	WA_Delivery_Details::get_instance();
 
 	//options
@@ -152,11 +153,13 @@ function run_woo_app() {
 
 	//ajax
 	WA_Orders_Ajax::get_instance();
+
 }
 //run_woo_app();
 add_action('plugins_loaded', 'run_woo_app');
 
 function wa_init() {
+	wa_remove_cap_shop_manager();
 }
 add_action( 'init', 'wa_init' );
 

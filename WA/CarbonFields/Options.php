@@ -69,8 +69,8 @@ class WA_CarbonFields_Options {
             )
         ) )
         ->add_options( $weekdays ),
-      Field::make( 'time', 'crb_opens_at', __( 'Delivery start time' ) ),
-      Field::make( 'time', 'crb_close_at', __( 'Delivery stop time' ) ),
+      Field::make( 'time', 'crb_opens_at', __( 'Store open' ) ),
+      Field::make( 'time', 'crb_close_at', __( 'Store close' ) ),
       Field::make( 'text', 'crb_delivery_time', __( 'Delivery Time ( Set Delivery time in minutes )' ) )
         ->set_attribute( 'placeholder', 'Set Delivery time in minutes' )
         ->set_default_value('25'),

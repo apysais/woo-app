@@ -48,9 +48,11 @@ class WA_Orders_List {
 		$orders = new WA_Orders_Get;
 		$new_orders = $orders->newOrders();
 		$released_orders = $orders->releasedOrders();
+		$working_orders = $orders->workingOrders();
 		$data = [
 			'new_orders' => $new_orders['orders'],
 			'released_orders' => $released_orders['orders'],
+			'working_orders' => $working_orders['orders'],
 			'class' => 'col-sm-12 col-md-12'
 		];
     WA_View::get_instance()->admin_partials( 'orders/loop-list.php', $data );

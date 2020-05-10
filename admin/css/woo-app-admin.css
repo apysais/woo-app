@@ -5,6 +5,24 @@
 .bootstrap-iso{
   font-size: 1rem;
 }
+.order-list-details{
+  padding:0 !important;
+}
+/*orders delivery pickup*/
+.wa-delivery-list-orders .row {
+  padding: 10px 0;
+}
+.wa-delivery-list-orders  p {
+  margin:0px;
+  padding:0px;
+}
+.wa-delivery-list-orders .row {
+  cursor: pointer;
+}
+.wa-delivery-list-orders .collapse  {
+  cursor: cursor;
+}
+/*orders delivery pickup*/
 .wa-dashboard-list-orders .row {
   padding: 10px 0;
 }

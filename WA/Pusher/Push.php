@@ -83,12 +83,12 @@ class WA_Pusher_Push {
     ]);
   }
 
-	public function releaseOrder() {
+	public function doneOrders() {
 		$this->pushNotification([
       'data' => [
-        'order' => 'release'
+        'order' => 'done'
       ],
-      'channel' => 'warehouse',
+      'channel' => 'orders-done',
       'event' => 'order',
     ]);
 	}

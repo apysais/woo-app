@@ -3,10 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
- * Ajax
- * @since 0.0.1
+ * Template
  * */
-class WA_Orders_Ajax {
+class WA_Orders_Index {
   /**
 	 * instance of this class
 	 *
@@ -41,19 +40,22 @@ class WA_Orders_Ajax {
 	}
 
 	public function __construct() {
-    add_action( 'wp_ajax_wa_refresh_orders', [$this, 'getOrders'] );
-    add_action( 'wp_ajax_wa_refresh_done_orders', [$this, 'getDoneOrders'] );
+    add_action('wa-top-orders-full-width', [$this, 'init']);
   }
 
-  public function getDoneOrders() {
-		WA_Orders_Index::get_instance()->init();
-    wp_die();
-  }
+  public function init( $args = [] ) {
+    $data = [];
+    $orders = new WA_Orders_Get;
+		$local_pickup = $orders->readyOrders();
+		$delivery = $orders->readyOrders();
 
-  public function getOrders() {
-		WA_Orders_List::get_instance()->get_orders();
-    wp_die();
+    $data = [
+      'local_pickup' => $local_pickup,
+      'delivery' => $delivery,
+      'class' => 'col-md-6 col-sm-12'
+    ];
+    //_dd($data);
+    WA_View::get_instance()->admin_partials( 'orders/deliver-loop-list.php', $data );
   }
-
 
 }//
